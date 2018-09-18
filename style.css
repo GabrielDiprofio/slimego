@@ -1,4 +1,15 @@
-.title {
-  color: green;
-  
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+canvas#game {
+  position: relative;
+  overflow: hidden;
+  background: #013;
+  width: 100%;
+  height: 100%;
 }
