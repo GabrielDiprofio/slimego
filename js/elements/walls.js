@@ -4,7 +4,7 @@ var wall = {
     wall.list[id] = {
       id: id,
       x: x,
-      y: yx
+      y: y,
       width: width,
       height: height,
       background: '#333',

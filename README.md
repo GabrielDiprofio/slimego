@@ -1,2 +1,0 @@
-# slimego
-game

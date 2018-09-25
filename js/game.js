@@ -25,45 +25,45 @@ var game = {
     this.elements.push(wall.list.right);
     this.elements.push(player);
     for (var i = 0; i < game.elements.length; i++) {
-      game.elements[i].init();
+      this.elements[i].init();
     }
-    setInterval(game.update, 1000/60);
+    setInterval(game.update.bind(this), 1000/60);
   },
   pause: function() {
-    if (game.state === gameStatesEnum.pause) {
-      game.state = gameStatesEnum.playing;
-    } else if (game.state === gameStatesEnum.playing) {
-      game.state = gameStatesEnum.pause;
+    if (this.state === gameStatesEnum.pause) {
+      this.state = gameStatesEnum.playing;
+    } else if (this.state === gameStatesEnum.playing) {
+      this.state = gameStatesEnum.pause;
     }
-    game.lastStateChange = 0;
+    this.lastStateChange = 0;
   },
   win: function() {},
   over: function() {},
   update: function() {
-    ++game.lastStateChange;
-    if (game.state === gameStatesEnum.playing) {
-      for (var i = 0; i < game.elements.length; i++) {
-        game.elements[i].update();
+    ++this.lastStateChange;
+    if (this.state === gameStatesEnum.playing) {
+      for (var i = 0; i < this.elements.length; i++) {
+        this.elements[i].update();
       }
     }
-    if (keyboard.p && game.lastStateChange > 30) {
-      game.pause();
+    if (keyboard.p && this.lastStateChange > 30) {
+      this.pause();
     }
     game.render();
   },
   render: function() {
-    if(game.state === gameStatesEnum.playing) {
-      game.context.fillStyle = game.backgroundColor;
-      game.context.fillRect(game.x, game.y, game.width, game.height);
-      for (var i = 0; i < game.elements.length; i++) {
-        game.elements[i].render();
+    if(this.state === gameStatesEnum.playing) {
+      this.context.fillStyle = this.backgroundColor;
+      this.context.fillRect(this.x, this.y, this.width, this.height);
+      for (var i = 0; i < this.elements.length; i++) {
+        this.elements[i].render();
       }
     } else {
-      game.context.fillStyle = 'rgba(50, 50, 50, 0.01)';
-      game.context.fillRect(game.x, game.y, game.width, game.height);
-      switch(game.state) {
+      this.context.fillStyle = 'rgba(50, 50, 50, 0.01)';
+      this.context.fillRect(this.x, this.y, this.width, this.height);
+      switch(this.state) {
         case gameStatesEnum.pause:
-          text.draw('Pausa', '#00f');
+          text.draw('Pausa', '#fe0');
           break;
       }
     }
