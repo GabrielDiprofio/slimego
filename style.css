@@ -9,7 +9,7 @@ html, body {
 canvas#game {
   position: relative;
   overflow: hidden;
-  background: #000;
+  background: #94ddd5;
   width: 100%;
   height: 100%;
 }

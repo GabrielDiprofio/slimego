@@ -7,7 +7,7 @@ var wall = {
       y: y,
       width: width,
       height: height,
-      background: '#333',
+      backgroundColor: '#215e27',
       init: function() {},
       update: function() {},
       render: function() {

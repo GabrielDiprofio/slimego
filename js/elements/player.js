@@ -3,21 +3,70 @@ var player = {
   y: 0,
   width: 40,
   height: 25,
-  backgroundColor: '#303',
-  speed: 3,
+  backgroundColor: '#e59239',
+  speed: 2,
+  jumpForce: null,
+  maxJumpForce: 6,
   score: 0,
+  checkCollision: function() {
+    var i, collisionSide, hasCollisionBottom = false;
+    for (i = 0; i < game.elements.length; i++) {
+      collisionSide = collision.boxesSide(player, game.elements[i]);
+      if(collisionSide) {
+        if(collisionSide === 'left' && keyboard.left) {
+          this.x += this.speed;
+        } else if(collisionSide === 'right' && keyboard.right) {
+          this.x -= this.speed;
+        } else if(collisionSide === 'top') {
+          if(this.jumpForce >= 0) {
+            this.jumpForce = -0.2;
+          }
+        } else if(collisionSide === 'bottom') {
+          this.jumpForce = null;
+          this.y = game.elements[i].y - this.height;
+          hasCollisionBottom = true;
+        }
+      }
+    }
+    if(!hasCollisionBottom && this.jumpForce === null) {
+      this.jumpForce = -0.2;
+    }
+  },
   move: function () {
+    //MOVE//
     if (keyboard.left) {
       this.x -= this.speed;
     } else if (keyboard.right) {
       this.x += this.speed;
     }
+    //JUMP//
+    if(typeof this.jumpForce === 'number') {
+      if(this.jumpForce >= -this.maxJumpForce) {
+        this.y -= this.jumpForce;
+        this.jumpForce -= 0.2;
+      } else {
+        this.jumpForce = null;
+      }
+    }
   },
+  checkJump: function() {
+  if(keyboard.up && this.jumpForce === null) {
+    this.jumpForce = this.maxJumpForce;
+  }
+},
+fixNumbers: function() {
+  if(typeof this.x === 'number') this.x = Math.round(this.x * 100) / 100;
+  if(typeof this.y === 'number') this.y = Math.round(this.y * 100) / 100;
+  if(typeof this.jumpForce === 'number') this.jumpForce = Math.round(this.jumpForce * 100) / 100;
+},
+init: function() {
+  this.y = wall.list['bottom'].y - this.height;
+},
   update: function() {
+    this.fixNumbers();
+    this.checkJump();
     this.move();
-  },
-  init: function() {
-    this.y = wall.list['bottom'].y - this.height;
+    this.checkCollision();
   },
   render: function () {
     game.context.fillStyle = this.backgroundColor;
