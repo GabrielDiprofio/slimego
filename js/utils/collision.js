@@ -1,8 +1,5 @@
 var collision = {
   boxes: function(boxA, boxB) {
-    if(boxA === boxB) {
-      return false;
-    }
     return boxA.x < (boxB.x + boxB.width) &&  //left
       (boxA.x + boxA.width) > boxB.x &&       //right
       boxA.y < (boxB.y + boxB.height) &&      //top
@@ -21,7 +18,7 @@ var collision = {
     if (distX > (box.width / 2 + circle.radius) || distY > (box.height / 2 + circle.radius)) {
       return false;
     }
-    if (distX <= (box.width / 2) || distY <= (box.height / 2)) { 
+    if (distX <= (box.width / 2) || distY <= (box.height / 2)) {
       return true;
     }
     var dx = distX - box.width / 2;

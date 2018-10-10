@@ -9,7 +9,6 @@ var keyboard = {
   x: false,
 
   press: function(evt) {
-    console.log(evt.code);
     var key = keyboardEnum[evt.code];
     if (key) {
       keyboard[key] = true;

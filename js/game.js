@@ -21,7 +21,7 @@ var game = {
     wall.create('right', game.width-20, 0, 1000, game.height);
     wall.create('i1', this.width*0.3, this.height*0.4, this.width*0.2, this.height*0.15);
     wall.create('i2', this.width*0, this.height*0.5, this.width*0.7, this.height*0.05);
-    wall.create('i5', this.width*0.8, this.height*0.5, this.width*0.2, this.height*0.05);    
+    wall.create('i5', this.width*0.8, this.height*0.5, this.width*0.2, this.height*0.05);
     wall.create('i3', this.width*0.7, this.height*0.7, this.width*0.1, this.height*0.95);
     wall.create('i4', this.width*0.3, this.height*0.9, this.width*0.5, this.height*0.08);
     for (var key in wall.list) {
@@ -29,8 +29,19 @@ var game = {
         this.elements.push(wall.list[key]);
       }
     }
+    fruit.create('f1', this.width*0.1, this.height*0.45);
+      for (var key in fruit.list) {
+        if (fruit.list.hasOwnProperty(key)) {
+          this.elements.push(fruit.list[key]);
+      }
+    }
+    enemys.create('e1', this.width*0.1, this.height*0.1);
+      for (var key in enemys.list) {
+        if (enemys.list.hasOwnProperty(key)) {
+          this.elements.push(enemys.list[key]);
+      }
+    }
     this.elements.push(player);
-    this.elements.push(enemy);
     for (var i = 0; i < this.elements.length; i++) {
       this.elements[i].init();
     }
@@ -44,7 +55,9 @@ var game = {
     }
     this.lastStateChange = 0;
   },
-  win: function() {},
+  win: function() {
+    this.state = gameStatesEnum.win;
+  },
   over: function() {
     this.state = gameStatesEnum.over;
   },
@@ -73,6 +86,9 @@ var game = {
       switch(this.state) {
         case gameStatesEnum.pause:
           text.draw('Pausa', '#fe0');
+          break;
+        case gameStatesEnum.win:
+          text.draw('Nivel superado: '+player.score+'pts', '#fff');
           break;
         case gameStatesEnum.over:
           text.draw('Perdiste', '#f00');

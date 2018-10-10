@@ -3,7 +3,7 @@ var player = {
   y: 0,
   width: 40,
   height: 25,
-  backgroundColor: '#e59239',
+  image: new Image(),
   speed: 2,
   jumpForce: null,
   maxJumpForce: 6,
@@ -61,6 +61,7 @@ fixNumbers: function() {
 },
 init: function() {
   this.y = wall.list['bottom'].y - this.height;
+  this.image.src = 'img/sprite/sonic.png';
 },
   update: function() {
     this.fixNumbers();
@@ -69,7 +70,6 @@ init: function() {
     this.checkCollision();
   },
   render: function () {
-    game.context.fillStyle = this.backgroundColor;
-    game.context.fillRect(this.x, this.y, this.width, this.height);
+    game.context.drawImage(this.image, this.x, this.y, this.width, this.height);
   }
-}
+};
